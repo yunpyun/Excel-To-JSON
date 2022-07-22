@@ -8,19 +8,20 @@ namespace ExcelToJSONLib
 {
     public class ExcelToJsonConverter
     {
-        public void JsonConver()
+        public string JsonConver()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             string inFilePath = @"C:\Users\Выймова Елена\Documents\InputExcel.xlsx";
-            var outFilePath = @"C:\Users\Выймова Елена\Documents\OutputJson.json";
+            StringBuilder sb = new StringBuilder();
+            StringWriter sw = new StringWriter(sb);
+            string result;
 
             using (var inFile = File.Open(inFilePath, FileMode.Open, FileAccess.Read))
-            using (var outFile = File.CreateText(outFilePath))
             {
                 using (var reader = ExcelReaderFactory.CreateReader(inFile, new ExcelReaderConfiguration()
                 { FallbackEncoding = Encoding.GetEncoding(1252) }))
-                using (var writer = new JsonTextWriter(outFile))
+                using (JsonWriter writer = new JsonTextWriter(sw))
                 {
                     writer.Formatting = Formatting.Indented;
                     writer.WriteStartArray();
@@ -94,6 +95,9 @@ namespace ExcelToJSONLib
                     writer.WriteEndArray();
                 }
             }
+
+            result = sw.ToString();
+            return result;
 
         }
     }

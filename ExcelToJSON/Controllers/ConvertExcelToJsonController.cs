@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ExcelToJSONLib;
+using System.IO;
 
 namespace ExcelToJSON.Controllers
 {
@@ -24,8 +25,9 @@ namespace ExcelToJSON.Controllers
             {
                 // запуск библиотеки
                 ExcelToJsonConverter converter = new ExcelToJsonConverter();
+                string sw = converter.JsonConver();
 
-                return StatusCode(200, "Конвертация завершена");
+                return StatusCode(200, sw);
             }
             catch (Exception err)
             {

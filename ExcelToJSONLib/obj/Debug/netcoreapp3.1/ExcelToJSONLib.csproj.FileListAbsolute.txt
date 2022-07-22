@@ -7,3 +7,12 @@ C:\Users\Выймова Елена\Desktop\Материалы для работ�
 C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\Пресейл Магнит\ExcelToJSON\ExcelToJSONLib\obj\Debug\netcoreapp3.1\ExcelToJSONLib.csproj.CoreCompileInputs.cache
 C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\Пресейл Магнит\ExcelToJSON\ExcelToJSONLib\obj\Debug\netcoreapp3.1\ExcelToJSONLib.dll
 C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\Пресейл Магнит\ExcelToJSON\ExcelToJSONLib\obj\Debug\netcoreapp3.1\ExcelToJSONLib.pdb
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSONLib\bin\Debug\netcoreapp3.1\ExcelToJSONLib.deps.json
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSONLib\bin\Debug\netcoreapp3.1\ExcelToJSONLib.dll
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSONLib\bin\Debug\netcoreapp3.1\ExcelToJSONLib.pdb
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSONLib\obj\Debug\netcoreapp3.1\ExcelToJSONLib.csproj.AssemblyReference.cache
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSONLib\obj\Debug\netcoreapp3.1\ExcelToJSONLib.AssemblyInfoInputs.cache
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSONLib\obj\Debug\netcoreapp3.1\ExcelToJSONLib.AssemblyInfo.cs
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSONLib\obj\Debug\netcoreapp3.1\ExcelToJSONLib.csproj.CoreCompileInputs.cache
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSONLib\obj\Debug\netcoreapp3.1\ExcelToJSONLib.dll
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSONLib\obj\Debug\netcoreapp3.1\ExcelToJSONLib.pdb
