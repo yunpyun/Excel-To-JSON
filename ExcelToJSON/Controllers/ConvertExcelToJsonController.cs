@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,19 +20,36 @@ namespace ExcelToJSON.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post()
+        public async Task<IActionResult> Post()
         {
-            try
-            {
-                // запуск библиотеки
-                ExcelToJsonConverter converter = new ExcelToJsonConverter();
-                string sw = converter.JsonConver();
+            IFormFile file = Request.Form.Files.FirstOrDefault();
 
-                return StatusCode(200, sw);
-            }
-            catch (Exception err)
+            if (file != null)
             {
-                return StatusCode(500, err.Message);
+                try
+                {
+                    var filePath = Path.GetTempPath();
+                    var fileName = filePath + file.FileName;
+
+                    using (var stream = System.IO.File.Create(fileName))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+                    // запуск библиотеки
+                    ExcelToJsonConverter converter = new ExcelToJsonConverter();
+                    string sw = converter.JsonConvert(fileName);
+
+                    return StatusCode(200, sw);
+                }
+                catch (Exception err)
+                {
+                    return StatusCode(500, err.Message);
+                }
+            }
+            else
+            {
+                return NotFound("Входные файлы не найдены");
             }
         }
     }

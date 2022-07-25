@@ -8,11 +8,10 @@ namespace ExcelToJSONLib
 {
     public class ExcelToJsonConverter
     {
-        public string JsonConver()
+        public string JsonConvert(string inFilePath)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            string inFilePath = @"C:\Users\Выймова Елена\Documents\InputExcel.xlsx";
             StringBuilder sb = new StringBuilder();
             StringWriter sw = new StringWriter(sb);
             string result;
@@ -24,8 +23,9 @@ namespace ExcelToJSONLib
                 using (JsonWriter writer = new JsonTextWriter(sw))
                 {
                     writer.Formatting = Formatting.Indented;
+                    writer.StringEscapeHandling = StringEscapeHandling.EscapeHtml;
                     writer.WriteStartArray();
-                    reader.Read();
+                    reader.Read(); // пропуск первой строки с заголовками
 
                     do
                     {
@@ -96,9 +96,9 @@ namespace ExcelToJSONLib
                 }
             }
 
-            result = sw.ToString();
+            result = sb.ToString();
+            result = result.Replace(@"\u0022", "\"");
             return result;
-
         }
     }
 }
