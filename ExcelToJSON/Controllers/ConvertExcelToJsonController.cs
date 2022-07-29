@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ExcelToJSONLib;
 using System.IO;
+using System.Net.Http;
 
 namespace ExcelToJSON.Controllers
 {
@@ -20,9 +21,11 @@ namespace ExcelToJSON.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post()
+        public async Task<IActionResult> Post(string url)
         {
             IFormFile file = Request.Form.Files.FirstOrDefault();
+
+            using var client = new HttpClient();
 
             if (file != null)
             {
@@ -39,6 +42,12 @@ namespace ExcelToJSON.Controllers
                     // запуск библиотеки
                     ExcelToJsonConverter converter = new ExcelToJsonConverter();
                     string sw = converter.JsonConvert(fileName);
+
+                    var data = new System.Net.Http.StringContent(sw);
+
+                    var response = await client.PostAsync(url, data);
+
+                    string result = response.Content.ReadAsStringAsync().Result;
 
                     return StatusCode(200, sw);
                 }

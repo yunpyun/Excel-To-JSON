@@ -1,0 +1,11 @@
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSON\obj\Docker\publish\ExcelToJSON.exe
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSON\obj\Docker\publish\appsettings.Development.json
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSON\obj\Docker\publish\appsettings.json
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSON\obj\Docker\publish\ExcelToJSON.dll
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSON\obj\Docker\publish\ExcelToJSON.deps.json
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSON\obj\Docker\publish\ExcelToJSON.runtimeconfig.json
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSON\obj\Docker\publish\ExcelToJSON.pdb
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSON\obj\Docker\publish\ExcelDataReader.dll
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSON\obj\Docker\publish\Newtonsoft.Json.dll
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSON\obj\Docker\publish\ExcelToJSONLib.dll
+C:\Users\Выймова Елена\Desktop\Материалы для работы\ПП\GitHub Repositories\Excel-To-JSON\ExcelToJSON\obj\Docker\publish\ExcelToJSONLib.pdb
