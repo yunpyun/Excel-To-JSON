@@ -10,17 +10,27 @@ using System.Net.Http;
 
 namespace ExcelToJSON.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
     public class ConvertExcelToJsonController : ControllerBase
     {
         [HttpGet]
+        [Route("[controller]")]
         public string Get()
         {
             return "result get ConvertExcelToJson";
         }
 
         [HttpPost]
+        [Route("[controller]/poststring")]
+        public string PostString()
+        {
+            HttpRequest context = Request;
+            string result = Request.Form["data"];
+            return "result poststring" + " " + context.ContentType.ToString() + " " + result;
+        }
+
+        [HttpPost]
+        [Route("[controller]")]
         public async Task<IActionResult> Post(string url)
         {
             IFormFile file = Request.Form.Files.FirstOrDefault();
@@ -43,13 +53,16 @@ namespace ExcelToJSON.Controllers
                     ExcelToJsonConverter converter = new ExcelToJsonConverter();
                     string sw = converter.JsonConvert(fileName);
 
-                    var data = new System.Net.Http.StringContent(sw);
+                    FormUrlEncodedContent str = new FormUrlEncodedContent(new[]
+                    {
+                        new KeyValuePair<string, string>("data", sw),
+                    });
 
-                    var response = await client.PostAsync(url, data);
+                    HttpResponseMessage response = await client.PostAsync(url, str);
 
                     string result = response.Content.ReadAsStringAsync().Result;
 
-                    return StatusCode(200, sw);
+                    return StatusCode(200, result);
                 }
                 catch (Exception err)
                 {
@@ -61,5 +74,7 @@ namespace ExcelToJSON.Controllers
                 return NotFound("Входные файлы не найдены");
             }
         }
+
+
     }
 }
