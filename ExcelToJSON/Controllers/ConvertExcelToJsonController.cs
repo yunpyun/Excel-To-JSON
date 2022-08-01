@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using ExcelToJSONLib;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 
 namespace ExcelToJSON.Controllers
 {
@@ -22,20 +24,30 @@ namespace ExcelToJSON.Controllers
 
         [HttpPost]
         [Route("[controller]/poststring")]
-        public string PostString()
+        public async Task<string> PostString()
         {
-            HttpRequest context = Request;
-            string result = Request.Form["data"];
-            return "result poststring" + " " + context.ContentType.ToString() + " " + result;
+            string data = null;
+            using (var streamReader = new StreamReader(Request.Body))
+            {
+                data = await streamReader.ReadToEndAsync();
+            }
+
+            return "result poststring" + ":\n" + data;
         }
 
         [HttpPost]
         [Route("[controller]")]
-        public async Task<IActionResult> Post(string url)
+        public async Task<IActionResult> Post()
         {
             IFormFile file = Request.Form.Files.FirstOrDefault();
+            string url = Request.Form["url"];
+            string token = Environment.GetEnvironmentVariable("TOKEN_ELMA365");
 
-            using var client = new HttpClient();
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+            using var client = new HttpClient(clientHandler);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             if (file != null)
             {
@@ -53,10 +65,7 @@ namespace ExcelToJSON.Controllers
                     ExcelToJsonConverter converter = new ExcelToJsonConverter();
                     string sw = converter.JsonConvert(fileName);
 
-                    FormUrlEncodedContent str = new FormUrlEncodedContent(new[]
-                    {
-                        new KeyValuePair<string, string>("data", sw),
-                    });
+                    StringContent str = new StringContent(sw);
 
                     HttpResponseMessage response = await client.PostAsync(url, str);
 
