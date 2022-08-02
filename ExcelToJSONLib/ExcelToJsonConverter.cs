@@ -8,6 +8,11 @@ namespace ExcelToJSONLib
 {
     public class ExcelToJsonConverter
     {
+        /// <summary>
+        /// Функция, вызываемая из api. Считывает excel и формирует JSON, который конвертируется в string и возвращается
+        /// </summary>
+        /// <param name="inFilePath">Путь до входного excel-файла</param>
+        /// <returns>Строка со сформированным JSON</returns>
         public string JsonConvert(string inFilePath)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -22,11 +27,15 @@ namespace ExcelToJSONLib
                 { FallbackEncoding = Encoding.GetEncoding(1252) }))
                 using (JsonWriter writer = new JsonTextWriter(sw))
                 {
+                    // Настройка нужного форматирования для дальнейшего корректного отображения
                     writer.Formatting = Formatting.Indented;
                     writer.StringEscapeHandling = StringEscapeHandling.EscapeHtml;
+                    // Запуск формирования массива
                     writer.WriteStartArray();
-                    reader.Read(); // пропуск первой строки с заголовками
+                    // Пропуск первой строки с заголовками таблицы excel
+                    reader.Read();
 
+                    // Цикличное считывание строк excel и запись в JSON значения каждой ячейки
                     do
                     {
                         while (reader.Read())
@@ -96,7 +105,9 @@ namespace ExcelToJSONLib
                 }
             }
 
+            // Получение сформированной строки
             result = sb.ToString();
+            // Чтобы убрать экранирование двойных кавычек
             result = result.Replace(@"\u0022", "\"");
             return result;
         }

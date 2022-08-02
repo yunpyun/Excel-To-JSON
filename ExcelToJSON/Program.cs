@@ -21,6 +21,10 @@ namespace ExcelToJSON
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureKestrel(options =>
+                    {
+                        options.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(15);
+                    });
                 });
     }
 }
