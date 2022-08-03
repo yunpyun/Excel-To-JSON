@@ -108,7 +108,7 @@ namespace ExcelToJSONLib
             // Получение сформированной строки
             result = sb.ToString();
             // Чтобы убрать экранирование двойных кавычек
-            result = result.Replace(@"\u0022", "\"");
+            result = result.Replace(@"\u0022", "'");
             return result;
         }
     }
