@@ -45,7 +45,7 @@ namespace ExcelToJSON.Controllers
         }
 
         /// <summary>
-        /// Метод, вызываемый в активити, куда передается файл и url активити. Асинхронно вызывает функцию Convert и продолжает выполнение
+        /// Метод, вызываемый в активити, куда передается файл и url активити. Асинхронно вызывает метод Convert и продолжает выполнение
         /// </summary>
         /// <returns>Статус выполнения 200</returns>
         [HttpPost]
@@ -55,6 +55,7 @@ namespace ExcelToJSON.Controllers
             IFormFile file = Request.Form.Files.FirstOrDefault();
             string url = Request.Form["url"];
 
+            // вызов асинхронного метода
             Convert(url, file);
 
             return StatusCode(200);
@@ -68,17 +69,19 @@ namespace ExcelToJSON.Controllers
         /// <returns>Выполняет вызов активити и отправляет на него результат выполнения конвертирования</returns>
         private async Task Convert(string url, IFormFile file)
         {
-            // Переменная окружения для использования токена стенда ELMA365
+            // переменная окружения для использования токена стенда ELMA365
             string token = Environment.GetEnvironmentVariable("TOKEN_ELMA365");
 
-            // Для SSL
+            // для SSL
             HttpClientHandler clientHandler = new HttpClientHandler
             {
                 ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
             };
 
+            // создание объекта для его последующего вызова и отправки ему результата
             using var client = new HttpClient(clientHandler);
-            // Авторизация с учетом токена
+
+            // авторизация с учетом токена
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             if (file != null)
@@ -86,7 +89,7 @@ namespace ExcelToJSON.Controllers
                 try
                 {
                     var filePath = Path.GetTempPath();
-                    var fileName = filePath + file.FileName;
+                    var fileName = filePath + Guid.NewGuid().ToString() + "-" + file.FileName;
 
                     using (var stream = System.IO.File.Create(fileName))
                     {
@@ -97,18 +100,30 @@ namespace ExcelToJSON.Controllers
                     ExcelToJsonConverter converter = new ExcelToJsonConverter();
                     string sw = converter.JsonConvert(fileName);
 
+                    // формирование объекта строки для отправки результата клиенту
                     StringContent str = new StringContent(sw);
 
+                    // удаление из временной папки входного excel-файла
+                    FileInfo fileInf = new FileInfo(fileName);
+
+                    if (fileInf.Exists)
+                    {
+                        fileInf.Delete();
+                    }
+
+                    // отправка строкового результата клиенту
                     HttpResponseMessage response = await client.PostAsync(url, str);
                 }
                 catch (Exception err)
                 {
+                    // формирование и отправка клиенту строки с текстом ошибки
                     StringContent errMess = new StringContent("Ошибка выполнения: " + err.Message);
                     await client.PostAsync(url, errMess);
                 }
             }
             else
             {
+                // формирование и отправка клиенту строки с текстом ошибки
                 StringContent notFound = new StringContent("Входные файлы не найдены");
                 await client.PostAsync(url, notFound);
             }
